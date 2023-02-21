@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addUser, deleteUser, updateUsername } from "./feture/user";
+import { getUserFetch,addUser, deleteUser, updateUsername } from "./feture/user";
 import {css} from '@emotion/css'
 
 function App() {
   const dispatch = useDispatch();
   const userList = useSelector((state) => state.users.value);
+  useEffect(() => {
+    dispatch(getUserFetch)
+  }, [dispatch]);
 
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");

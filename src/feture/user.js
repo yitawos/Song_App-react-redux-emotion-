@@ -1,14 +1,22 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
+import {createSlice} from '@reduxjs/toolkit'
 import SongData from '../data'
 
-export const getpost = createAsyncThunk("post/getpost", async ({id}) => {
-    return fetch(`https://jsonplaceholder.typicode.com/posts`).then((res)=> res.json())
-})
 
 export const sclice = createSlice({
     name:"users",
-    initialState: {value : SongData},
+    initialState: {value : []},
     reducers : {
+        getUserFetch:(state) => {
+            state.isLoading = true;
+            isLoading: false
+         },
+         getUserSuccess : (state,action) =>{
+            state.value = action.payload;
+            state.isLoading = false;
+         },
+         getFailure : (state) => {
+            state.isLoading = false;
+         },
         addUser : (state,action) => {
              state.value.push(action.payload)
     },
@@ -28,5 +36,5 @@ export const sclice = createSlice({
 }
 })
 
-export const {addUser, deleteUser,updateUsername } = sclice.actions
+export const {getUserFetch , getUserSuccess, getFailure ,addUser, deleteUser,updateUsername } = sclice.actions
 export default sclice.reducer
